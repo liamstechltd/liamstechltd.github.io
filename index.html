@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMind - Mental Health Support for the UK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .emergency-banner a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 8px 16px;
+            border: 2px solid white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-banner a:hover {
+            background: white;
+            color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #1e293b;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .helpline-card {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border: none;
+        }
+
+        .helpline-card::before {
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+        }
+
+        .helpline-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ea580c;
+            margin: 10px 0;
+        }
+
+        .helpline-hours {
+            font-style: italic;
+            color: #92400e;
+        }
+
+        /* Coping Strategies */
+        .strategy-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #10b981;
+        }
+
+        .strategy-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .strategy-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.bot {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .chat-send {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f1f5f9;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            color: #94a3b8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav {
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .chat-window {
+                width: 90vw;
+                right: 5vw;
+                left: 5vw;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <div class="container">
+            <strong>🚨 EMERGENCY:</strong> If you're in immediate danger, call 
+            <a href="tel:999">999</a> or <a href="tel:116123">116 123 (Samaritans)</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">MyMind</div>
+                <nav class="nav">
+                    <a href="#home">Home</a>
+                    <a href="#helplines">Helplines</a>
+                    <a href="#coping">Coping</a>
+                    <a href="#emergency">Emergency</a>
+                    <a href="#chat">Chat</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="fade-in">You're Not Alone</h1>
+            <p class="fade-in">Professional mental health support available 24/7 across the UK. We're here to listen, support, and help you through difficult times.</p>
+            <a href="#helplines" class="cta-button fade-in">Get Help Now</a>
+        </div>
+    </section>
+
+    <!-- Helplines Section -->
+    <section id="helplines" class="section">
+        <div class="container">
+            <h2 class="section-title">UK Mental Health Helplines</h2>
+            <div class="grid">
+                <div class="card helpline-card">
+                    <h3>Samaritans</h3>
+                    <div class="helpline-number">116 123</div>
+                    <p class="helpline-hours">24 hours, 7 days a week</p>
+                    <p>Free emotional support for anyone in distress, struggling to cope, or at risk of suicide.</p>
+                </div>
+                
+                <div class="card helpline-card">
+                    <h3>Mind Infoline</h3>
+                    <div class="helpline-number">0300 123 3393</div>
+                    <p class="helpline-hours">Mon-Fri 9am-6pm</p>
+                    <p>Information and support for mental health problems, including where to get help near you.</p>
+                </div>
+                
+                <div class="card helpline-card">
+                    <h3>Crisis Text Line</h3>
+                    <div class="helpline-number">Text SHOUT to 85258</div>
+                    <p class="helpline-hours">24/7 text support</p>
+                    <p>Free, confidential, 24/7 text support service for anyone in crisis.</p>
+                </div>
+                
+                <div class="card helpline-card">
+                    <h3>NHS 111</h3>
+                    <div class="helpline-number">111</div>
+                    <p class="helpline-hours">24 hours, 7 days a week</p>
+                    <p>Non-emergency medical advice and mental health crisis support.</p>
+                </div>
+                
+                <div class="card helpline-card">
+                    <h3>Childline</h3>
+                    <div class="helpline-number">0800 1111</div>
+                    <p class="helpline-hours">24 hours, 7 days a week</p>
+                    <p>Free, private and confidential service for children and young people up to 19.</p>
+                </div>
+                
+                <div class="card helpline-card">
+                    <h3>CALM (Men)</h3>
+                    <div class="helpline-number">0800 58 58 58</div>
+                    <p class="helpline-hours">Daily 5pm-midnight</p>
+                    <p>Leading a movement against male suicide, providing support and resources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coping Strategies Section -->
+    <section id="coping" class="section">
+        <div class="container">
+            <h2 class="section-title">Coping Strategies & Self-Care</h2>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">🌬️ Deep Breathing Exercises</div>
+                <p>Practice the 4-7-8 technique: Inhale for 4 counts, hold for 7, exhale for 8. This helps activate your body's relaxation response and reduce anxiety.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">🧘 Mindfulness & Meditation</div>
+                <p>Try apps like Headspace or Calm for guided meditations. Even 5 minutes daily can help reduce stress and improve emotional regulation.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">📱 Digital Detox</div>
+                <p>Set boundaries with social media and news consumption. Consider phone-free meals or designating tech-free zones in your home.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">🏃 Physical Activity</div>
+                <p>Regular exercise releases endorphins. Even a 10-minute walk can boost your mood. Find activities you enjoy - dancing, swimming, or yoga.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">💤 Sleep Hygiene</div>
+                <p>Maintain consistent sleep schedules, create a relaxing bedtime routine, and limit screens before bed. Quality sleep is crucial for mental health.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">🤝 Connect with Others</div>
+                <p>Reach out to friends, family, or support groups. Social connection is vital for mental wellbeing - even a text to check in can help.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">📝 Journaling</div>
+                <p>Write down your thoughts and feelings. Try gratitude journaling - listing 3 things you're grateful for each day can shift perspective.</p>
+            </div>
+            
+            <div class="strategy-item">
+                <div class="strategy-title">🎨 Creative Expression</div>
+                <p>Art, music, writing, or crafting can be therapeutic outlets. Express yourself without judgment - the process is more important than the result.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Section -->
+    <section id="emergency" class="section">
+        <div class="container">
+            <h2 class="section-title">Mental Health Emergency Guide</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🚨 Immediate Danger</h3>
+                    <p><strong>Call 999 immediately if:</strong></p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #64748b;">
+                        <li>You have seriously injured yourself</li>
+                        <li>You have taken an overdose</li>
+                        <li>You are at immediate risk of harm</li>
+                        <li>Someone else is at immediate risk</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>⚠️ Crisis Situation</h3>
+                    <p><strong>Contact crisis services if:</strong></p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #64748b;">
+                        <li>You're having suicidal thoughts</li>
+                        <li>You're experiencing severe depression</li>
+                        <li>You're having a panic attack</li>
+                        <li>You feel unable to cope</li>
+                    </ul>
+                    <p><strong>Call Samaritans: 116 123</strong></p>
+                </div>
+                
+                <div class="card">
+                    <h3>🏥 Getting Professional Help</h3>
+                    <p><strong>Steps to take:</strong></p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #64748b;">
+                        <li>Contact your GP for a referral</li>
+                        <li>Visit A&E if you can't wait</li>
+                        <li>Call NHS 111 for guidance</li>
+                        <li>Contact your local mental health team</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>👥 Support Network</h3>
+                    <p><strong>Build your support system:</strong></p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #64748b;">
+                        <li>Identify trusted friends/family</li>
+                        <li>Join support groups</li>
+                        <li>Consider online communities</li>
+                        <li>Inform your workplace if needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MyMind</h3>
+                    <p>Providing compassionate mental health support across the UK. Remember, seeking help is a sign of strength, not weakness.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#helplines">Helplines</a>
+                    <a href="#coping">Coping Strategies</a>
+                    <a href="#emergency">Emergency Guide</a>
+                    <a href="#chat">Support Chat</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <a href="https://www.nhs.uk/mental-health/" target="_blank">NHS Mental Health</a>
+                    <a href="https://www.mind.org.uk/" target="_blank">Mind UK</a>
+                    <a href="https://www.samaritans.org/" target="_blank">Samaritans</a>
+                    <a href="https://www.mentalhealth.org.uk/" target="_blank">Mental Health Foundation</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Disclaimer</h3>
+                    <p>MyMind provides information and support but is not a substitute for professional medical advice. Always consult healthcare professionals for medical concerns.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 MyMind. Made with care for mental health awareness in the UK.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-toggle" onclick="toggleChat()">💬</button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h3>Support Chat</h3>
+                <p>Share your thoughts safely here</p>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <p>Hello there 👋 I'm here to listen. This is a safe space where you can share whatever is on your mind. How are you feeling today?</p>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+                <button class="chat-send" onclick="sendMessage()">→</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chat functionality
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const isVisible = chatWindow.style.display === 'flex';
+            chatWindow.style.display = isVisible ? 'none' : 'flex';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate bot response with delay
+                setTimeout(() => {
+                    const response = generateResponse(message);
+                    addMessage(response, 'bot');
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function generateResponse(message) {
+            const responses = {
+                // Positive responses
+                positive: [
+                    "Thank you for sharing that with me. Your feelings are completely valid. 💙",
+                    "I hear you, and I want you to know that you're not alone in this. 🤗",
+                    "It takes courage to express how you're feeling. I'm proud of you for reaching out. ✨",
+                    "Your emotions matter, and so do you. Thank you for trusting me with your thoughts. 💚",
+                    "I'm listening, and I care about what you're going through. 🌟"
+                ],
+                
+                // Encouragement
+                encouragement: [
+                    "You're stronger than you know, even when it doesn't feel that way. 💪",
+                    "Taking it one day at a time is perfectly okay. You're doing great. 🌈",
+                    "Every small step forward is progress, no matter how tiny it might seem. 🌱",
+                    "Be gentle with yourself. Healing isn't linear, and that's completely normal. 🕊️",
+                    "You deserve compassion, especially from yourself. 💝"
+                ],
+                
+                // Support for difficult emotions
+                difficult: [
+                    "Those feelings sound really challenging. It's okay to not be okay sometimes. 🫂",
+                    "What you're experiencing is valid. Many people go through similar struggles. 💜",
+                    "It's brave of you to acknowledge these difficult feelings. That's the first step. 🌸",
+                    "I'm sorry you're going through this. Please remember that help is available. 🤲",
+                    "Your pain is real, and you deserve support. Consider reaching out to a professional. 📞"
+                ],
+                
+                // Anxiety responses
+                anxiety: [
+                    "Anxiety can feel overwhelming. Try the 5-4-3-2-1 grounding technique: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste. 🌿",
+                    "When anxiety hits, remember to breathe deeply. You're safe right now. 🌊",
+                    "Anxiety lies to us sometimes. You're stronger than your worries. 🦋",
+                    "It's okay to feel anxious. These feelings will pass. You've gotten through difficult times before. ⭐"
+                ],
+                
+                // Depression responses
+                depression: [
+                    "Depression can make everything feel harder. You're not alone, and this feeling won't last forever. 🌅",
+                    "Even when it's hard to see, you have value and worth. Your life matters. 💎",
+                    "Small steps count. Even getting out of bed or having a shower is an achievement. 🌿",
+                    "Depression can make us feel invisible, but you're seen and you matter. 👀💙"
+                ],
+                
+                // Crisis keywords
+                crisis: [
+                    "I'm concerned about you. Please reach out to Samaritans at 116 123 or text SHOUT to 85258 for immediate support. 🆘",
+                    "Your life has value. Please call 999 if you're in immediate danger, or 116 123 for someone to talk to right away. 🚨",
+                    "These feelings are temporary, even though they feel permanent. Please get professional help immediately. 📞🏥"
+                ]
+            };
+
+            const messageWords = message.toLowerCase();
+            
+            // Crisis detection
+            const crisisKeywords = ['suicide', 'kill myself', 'end it all', 'can\'t go on', 'want to die', 'overdose', 'hurt myself'];
+            if (crisisKeywords.some(keyword => messageWords.includes(keyword))) {
+                return responses.crisis[Math.floor(Math.random() * responses.crisis.length)];
+            }
+            
+            // Anxiety detection
+            const anxietyKeywords = ['anxious', 'panic', 'worried', 'nervous', 'scared', 'fear', 'anxiety'];
+            if (anxietyKeywords.some(keyword => messageWords.includes(keyword))) {
+                return responses.anxiety[Math.floor(Math.random() * responses.anxiety.length)];
+            }
+            
+            // Depression detection
+            const depressionKeywords = ['depressed', 'sad', 'hopeless', 'empty', 'worthless', 'numb', 'lonely'];
+            if (depressionKeywords.some(keyword => messageWords.includes(keyword))) {
+                return responses.depression[Math.floor(Math.random() * responses.depression.length)];
+            }
+            
+            // Difficult emotions
+            const difficultKeywords = ['struggling', 'difficult', 'hard', 'tough', 'overwhelmed', 'stressed', 'pain'];
+            if (difficultKeywords.some(keyword => messageWords.includes(keyword))) {
+                return responses.difficult[Math.floor(Math.random() * responses.difficult.length)];
+            }
+            
+            // Positive or neutral responses
+            if (Math.random() < 0.3) {
+                return responses.encouragement[Math.floor(Math.random() * responses.encouragement.length)];
+            } else {
+                return responses.positive[Math.floor(Math.random() * responses.positive.length)];
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .strategy-item, .section-title').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
